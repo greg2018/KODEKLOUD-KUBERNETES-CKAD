@@ -1,0 +1,315 @@
+kubectl get ns --no-headers | wc -l
+
+kubectl get pods --namespace=research
+
+kubectl -n research get pods --no-headers  |wc -l
+
+kubectl run redis --image=redis --dry-run=client -o yaml >pod.yaml
+
+db-service.dev.svc.cluster.local
+
+kubectl run redis --image=redis --namespace=finance
+
+kubectl get pods --all-namespaces
+
+
+########
+
+kubectl run nginx-pod --image=nginx:alpine
+
+kubectl run redis --image=redis:alpine -l tier=db
+OR 
+kubectl run redis --image=redis:alpine -labels=tier=db
+
+
+kubectl expose pod redis  --name redis-service  --port=6379  --tartget-port 6379
+
+
+
+kubectl create deployment webapp --image=kodekloud/webapp-color
+
+kubectl scale deployment/webapp --replicas=3
+
+
+kubectl run custom-nginx --image=nginx --port=8080
+
+
+
+kubectl create ns dev-ns
+
+
+ 
+kubectl create deployment redis-deploy --image redis --namespace=dev-ns --dry-run=client -o yaml > deploy.yaml
+
+
+
+kubectl apply -f deploy.yaml 
+
+kubectl run httpd --image=httpd:alpine --port=80 --expose --dry-run=client -o yaml > deploy2.yaml
+
+
+###### edit pod
+kubectl delete pod webapp
+Then create a new pod with your changes using the temporary file
+kubectl create -f /tmp/kubectl-edit-ccvrq.yaml
+
+The second option is to extract the pod definition in YAML format to a file using the command
+
+kubectl get pod webapp -o yaml > my-new-pod.yaml
+
+Then make the changes to the exported file using an editor (vi editor). Save the changes
+
+vi my-new-pod.yaml
+
+Then delete the existing pod
+
+kubectl delete pod webapp
+
+Then create a new pod with the edited file
+
+kubectl create -f my-new-pod.yaml
+
+###### edit deployment 
+
+kubectl edit deployment my-deployment
+
+
+
+ubuntu-sleeper
+
+kubectl run webapp-green --image=kodekloud/webapp-color --restart=Never --dry-run -o yaml >pod.yaml
+
+kubectl get configmaps
+
+kubectl get pod webapp-color -o yaml >pod.yaml
+
+kubectl describe configmaps db-config
+
+kubectl create cm webapp-config-map --from-literal=APP_COLOR=darkblue
+
+kubectl delete pod webapp-color 
+
+kubectl explain pods --recursive |grep envFrom -A3
+
+- envFrom:    
+     - configMapRef:
+         name: webapp-config-map
+		 
+		 
+echo -n 'root' | base64
+
+echo -n 'cm9vdA==' | base64 --decode
+
+kubectl get secrets
+
+kubectl describe secret
+
+kubectl create secret generic db-secret --from-literal=DB_Host=sql01 --from-literal=DB_User=root --from-literal=DB_Password=password123
+
+kubectl explain pods --recursive | less
+
+kubectl explain pods --recursive | grep -A8 envFrom
+
+docker run --user=1000 ubuntu sleep 3600
+
+#####
+create a Dockerfile:
+
+FROM ubuntu
+
+USER 1000
+
+docker build -t my-ubuntu-image .
+
+docker run my-ubuntu-image sleep 3600
+
+ kubectl exec ubuntu-sleeper -- whoami
+ 
+ kubectl exec -it ubuntu-sleeper -- date -s '19 APR 2012 11:14:00'
+ 
+ kubectl create serviceaccount dashboard-sa
+ 
+ kubectl get serviceaccount
+ 
+ dashboard-sa-token-kbbdm
+ 
+ kubectl describe secret dashboard-sa-token-kbbdm
+ 
+ kubectl describe pod my-kubernetes-dashboard
+ 
+ kubectl exec -it my-kubernetes-dashboard ls /var/run/secrets/kubernetes.io/serviceaccount
+ 
+ kubectl exec -it my-kubernetes-dashboard cat /var/run/secrets/kubernetes.io/serviceaccount/token
+ 
+ kubectl get serviceaccounts
+ 
+ kubectl describe serviceaccount default
+ 
+ kodekloud/my-kubernetes-dashboard
+ 
+ kubectl describe  deployment web-dashboard
+ 
+ kubectl describe pod
+ 
+ kubectl create serviceaccount dashboard-sa
+ 
+ 'kubectl describe secret 
+ 
+ kubectl get secrets
+ 
+ 
+ kubectl get deployment web-dashboard   -o yaml >web-dashboard.yaml
+ 
+ 
+ kubectl describe node kubemaster | grep Taint
+ 
+ kubectl label nodes node-1 size=Large
+ 
+ 
+ spec:
+  serviceAccountName: dashboard-sa
+  
+  
+kubectl describe pod rabbit
+
+kubectl get pod elephant   -o yaml >pod_elephant.yaml
+
+kubectl delete pod elephant
+
+kubectl create -f pod_elephant.yaml
+ 
+ 
+kubectl get nodes
+
+kubectl describe node node01
+
+kubectl describe node node01 |grep -i taint
+
+
+
+kubectl taint nodes node01 spray=mortein:NoSchedule
+
+kubectl run mosquito --image=nginx --restart=Never
+
+kubectl run bee --image=nginx --restart=Never --dry-run=client -o yaml > bee.yaml
+
+kubectl explain pod --recursive | less
+
+kubectl explain pod --recursive | grep -A5 tolerations
+
+kubectl describe node master/controlplane
+
+kubectl describe node controlplane |grep -i taint
+
+kubectl taint nodes controlplane node-role.kubernetes.io/master:NoSchedule-
+
+kubectl get pods -o wide
+
+kubectl describe nodes master |grep -i taint
+
+kubectl label nodes node-1 size=Large
+
+kubectl describe node node01 -o wide
+
+kubectl label node node01 color=blue
+
+kubectl create deployment blue --image=nginx 
+
+kubectl scale deployment blue --replicas=6
+
+kubectl get pods -o wide
+
+get deployments.app blue -o yaml >blue.yaml
+
+kubectl delete deployments.apps blue
+
+###### Multi Containers
+
+kubectl run yellow --image=busybox --restart=Never --dry-run=client -o yaml > pod.yaml
+
+kubectl get ns
+
+kubectl -n elastic-stack get pod, svc
+
+kubectl -n elastic-stack logs app
+
+kubectl -n elastic-stack exec -it app cat /log/app.log
+
+kubectl -n elastic-stack get pod app -o yaml > app.yaml
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: app
+  namespace: elastic-stack
+  labels:
+    name: app
+spec:
+  containers:
+  - name: app
+    image: kodekloud/event-simulator
+    volumeMounts:
+    - mountPath: /log
+      name: log-volume
+
+  - name: sidecar
+    image: kodekloud/filebeat-configured
+    volumeMounts:
+    - mountPath: /var/log/event-simulator/
+      name: log-volume
+
+  volumes:
+  - name: log-volume
+    hostPath:
+      # directory location on host
+      path: /var/log/webapp
+      # this field is optional
+      type: DirectoryOrCreate
+	  
+###### Readiness and Liveness Probes
+
+kubectl get pod simple-webapp-2 -o yaml > simple-webapp-2.yaml
+
+
+
+
+	  
+	  
+######
+
+
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
+
+
+
+		 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
