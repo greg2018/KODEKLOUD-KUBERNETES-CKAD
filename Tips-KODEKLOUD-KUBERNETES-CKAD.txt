@@ -275,7 +275,83 @@ kubectl get pod simple-webapp-2 -o yaml > simple-webapp-2.yaml
 
 	  
 	  
-######
+###### Logs Docker
+docker run -d kodekloud/event-simulator
+docker logs -f ecf
+
+kubectl create -f event-simulator.yaml 
+kubectl logs -f event-simulator-pod
+
+kubectl logs -f event-simulator-pod event-simulator
+
+kubectl get pod webapp-1 -o yaml > wepapp-1.yaml
+
+kubectl logs -f webapp-1
+
+kubectl logs -f webapp-1 | grep USER5
+
+kubectl logs -f webapp-2 simple-webapp
+
+kubectl logs webapp-2 -c simple-webapp
+
+####### Kubenetes Monitoring
+minikube addons enable metrics-server 
+
+git clone https://github.com/kubernetes-incubator/metrics-server.git
+
+git clone https://github.com/kubernetes-sigs/metrics-server.git
+
+C:\UserApps3\kubernetesWorkspaces\metrics-server
+
+kubectl apply -f https://github.com/kubernetes-sigs/metrics-server/releases/latest/download/components.yaml
+
+kubectl create -f deploy/1.8+/
+
+git clone https://github.com/kodekloudhub/kubernetes-metrics-server.git
+
+kubectl create -f .
+
+watch kubectl top node 
+
+kubectl top node 
+
+kubectl top pod
+
+kubectl top pod --sort-by=cpu
+kubectl top pod --sort-by=memory
+
+kubectl top node --sort-by=cpu
+kubectl top node --sort-by=memory
+
+###### Labels, Selectors, and Annotations
+
+kubectl get pods --selector env=dev
+
+kubectl get pods --selector bu=finance
+
+kubectl get all --selector env=prod
+
+kubectl get all --selector env=prod,bu=finance,tier=frontend
+
+###### Rollout
+
+kubectl rollout status deployment/myapp-deployment
+
+kubectl rollout history deployment/myapp-deployment
+
+kubectl apply -f deployment-definition.yaml
+
+kubectl set image deployment/myapp-deployment nginx=nginx:1.9.1
+
+kubectl get replicasets
+
+kubectl rollout undo deployment/muapp-deployment
+
+kubectl get repliasets
+
+kubectl run nginx --image=nginx
+
+
 
 
  
