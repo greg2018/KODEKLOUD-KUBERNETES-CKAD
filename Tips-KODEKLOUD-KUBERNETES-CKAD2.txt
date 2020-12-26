@@ -61,6 +61,98 @@ kubectl edit ingress --namespace app-space
 
 
 
+##Ingress Networking -2 
+
+kubectl get deployments.apps--all-namespaces
+
+
+
+kubectl create namespace ingress-space
+
+kubectl create ns ingress-space
+
+
+
+kubectl create configmap nginx-configuration --namespace ingress-space
+
+kubectl create cm nginx-configuration --namespace ingress-space
+
+
+kubectl create serviceaccount ingress-serviceaccount --namespace ingress-space
+
+kubectl create ns ingress-serviceaccount --namespace ingress-space
+
+
+kubectl -n ingress-space get rolebingings.rbac.authorization.k8s.io
+
+kubectl get roles,rolebindings --namespace ingress-space
+
+
+
+ kubectl create -f  /var/answers/ingress-controller-answer-file.yaml
+ 
+ kubectl create -f /var/answers/ingress-service.yaml
+ 
+ kubectl create -f  /var/answers/ingress-resource.yaml
+ 
+ 
+ #Network Policy
+ 
+ kubectl get networkpolicy
+ 
+ kubectl get netpol
+ 
+ kubectl get pods -l name=payroll
+ 
+ kubectl describe netpol payroll-policy
+ 
+ 
+ kubectl get pods -l name=internal
+ 
+ 
+ ###### State Persistence
+ Persistent Volumes
+ 
+ kubectl exec webapp -- cat /log/app.log
+ 
+  /var/answers/webapp-pod-hostpath.yaml
+  
+kubectl get pvc
+  
+kubectl get pv
+
+ /var/answers/claim-log-1-new.yaml
+ 
+ kubectl delete pvc claim-log-1
+ 
+ 
+ ###### Storage class
+ 
+ kubectl get sc
+ 
+ kubectl create -f /var/answers/pvc.yaml
+ 
+ kubectl describe pvc local-pvc
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+
+
+
 
 
 
